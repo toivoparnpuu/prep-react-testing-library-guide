@@ -1,3 +1,6 @@
+# About
+The project is a clone of a tutorial on how to test React apps using the React Testing Library and Jest. It also adds its own tests to the project, which are designed to test the app from a testing perspective.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
