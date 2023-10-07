@@ -1,5 +1,5 @@
 import React from "react";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { render, cleanup, fireEvent, waitFor } from "@testing-library/react";
 import Jaljendus from "./components/Jaljendus";
 import "@testing-library/jest-dom/extend-expect";
 
@@ -16,7 +16,7 @@ it("Muudame valik1 NARVA", () => {
 
   fireEvent.change(getByTestId("valik1"), { target: { value: "narva" } });
 
-  expect(getByTestId("vastus1")).toHaveTextContent("NARVA");
+  expect(getByTestId("vastus1")).toHaveTextContent("narva");
 });
 
 it("Muudame valik1 TALLINN", () => {
@@ -24,11 +24,22 @@ it("Muudame valik1 TALLINN", () => {
 
   fireEvent.change(getByTestId("valik1"), { target: { value: "tallinn" } });
 
-  expect(getByTestId("vastus1")).toHaveTextContent("TALLINN");
+  expect(getByTestId("vastus1")).toHaveTextContent("tallinn");
 });
 
 it("Muudame valik1 TARTU", () => {
-  const { getByTestId } = render(<Jaljendus />);
-  fireEvent.change(getByTestId("valik1"), { target: { value: "tartu" } });
-  expect(getByTestId("vastus1")).toHaveTextContent("TARTU");
+    const { getByTestId } = render(<Jaljendus />);
+    fireEvent.change(getByTestId("valik1"), { target: { value: "tartu" } });
+    expect(getByTestId("vastus1")).toHaveTextContent("tartu");
+});
+
+it("Muudame valik1 TARTU ja saame vastuseks Ülikool Toomemägi", async () => {
+    const { getByTestId } = render(<Jaljendus />);
+    fireEvent.change(getByTestId("valik1"), { target: { value: "tartu" } });
+    expect(getByTestId("vastus1")).toHaveTextContent("tartu");
+
+
+    await waitFor(() => {
+        expect(getByTestId("vastus2")).toHaveTextContent("Ülikool Toomemägi");
+    },{timeout: 4000});
 });
